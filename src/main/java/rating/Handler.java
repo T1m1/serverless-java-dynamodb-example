@@ -1,6 +1,4 @@
-package hello;
-
-import java.io.IOException;
+package rating;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
