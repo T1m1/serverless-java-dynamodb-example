@@ -7,7 +7,7 @@
 #
 # Happy Coding!
 
-service: aws-java-gradle # NOTE: update this with your service name
+service: serverless-rating # NOTE: update this with your service name
 
 provider:
   name: aws
@@ -31,3 +31,34 @@ functions:
             path: rating
             method: post
             cors: true
+
+resources:
+  Resources:
+    DynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: serverless3
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    DynamoDBIamPolicy:
+      Type: AWS::IAM::Policy
+      DependsOn: DynamoDbTable
+      Properties:
+        PolicyName: lambda-dynamodb
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+              Resource: arn:aws:dynamodb:*:*:table/serverless3
+        Roles:
+          - Ref: IamRoleLambdaExecution
