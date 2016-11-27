@@ -6,10 +6,6 @@
   * `serverless create --template aws-java-gradle --path my-service`
   * Available templates: aws-nodejs, aws-python, aws-java-maven, aws-java-gradle, aws-scala-sbt
 
-* ##### Create a new Serverless Service:
-  * `serverless create --template aws-java-gradle --path my-service`
-  * Available templates: aws-nodejs, aws-python, aws-java-maven, aws-java-gradle, aws-scala-sbt
-
 * ##### Deploy Function:
   * Use this to quickly upload and overwrite your AWS Lambda code on AWS, allowing you to develop faster.
   * `serverless deploy function -f myfunction`
