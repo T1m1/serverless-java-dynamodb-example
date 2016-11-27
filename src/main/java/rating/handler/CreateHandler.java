@@ -25,7 +25,7 @@ public class CreateHandler implements RequestHandler<Rating, Response> {
         Util.checkParameter(rating);
 
         try {
-            PutItemSpec putItemSpec = new PutItemSpec().withItem(DynamoDBHelper.ratingToDBItem((Rating) rating));
+            PutItemSpec putItemSpec = new PutItemSpec().withItem(DynamoDBHelper.ratingToDBItem(rating));
             table.putItem(putItemSpec);
         } catch (ConditionalCheckFailedException e) {
             throw new IllegalArgumentException("400 Bad Rating");

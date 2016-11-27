@@ -14,10 +14,10 @@ public class DynamoDBHelper {
 
 
     public static List<Rating> convertResultToRating(ScanResult scan) {
-        ArrayList<Rating> result = new ArrayList<Rating>();
-        for (Map item : scan.getItems()) {
+        ArrayList<Rating> result = new ArrayList<>();
+        for (Map<String, AttributeValue> item : scan.getItems()) {
             Rating rating = new Rating();
-            rating.setChargeStationId(((AttributeValue) item.get(Constants.CHARGE_STATION_ID)).getS());
+            rating.setChargeStationId(item.get(Constants.CHARGE_STATION_ID).getS());
             rating.setFunctionality(Util.getIntegerValue(item, Constants.FUNCTIONALITY));
             rating.setAccessibility(Util.getIntegerValue(item, Constants.ACCESSIBILITY));
             rating.setPrice(Util.getIntegerValue(item, Constants.PRICE));
