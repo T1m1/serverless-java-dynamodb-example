@@ -1,15 +1,42 @@
 package rating.handler;
 
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import rating.model.ListResponse;
 import rating.model.Rating;
-import rating.model.Response;
+import rating.util.DynamoDBHelper;
+import rating.util.Util;
 
-public class GetHandler implements RequestHandler<Rating, Response> {
+import java.util.HashMap;
+import java.util.List;
 
-	@Override
-	public Response handleRequest(Rating input, Context context) {
-		return new Response("Go Serverless v1.0! Your function executed successfully!", input);
-	}
+public class GetHandler implements RequestHandler<Rating, ListResponse> {
+
+    @Override
+    public ListResponse handleRequest(Rating rating, Context context) {
+        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient().withRegion(Region.getRegion(Regions.US_EAST_1));
+        if (rating.getChargeStationId() == null) {
+            Util.throwMissingKeyException("chargeStationId");
+        }
+        Condition scanFilterCondition = new Condition()
+                .withComparisonOperator(ComparisonOperator.EQ.toString())
+                .withAttributeValueList(new AttributeValue().withS(rating.getChargeStationId()));
+
+        HashMap<String, Condition> conditions = new HashMap<>();
+
+        conditions.put("chargeStationId", scanFilterCondition);
+        ScanRequest scanRequest = new ScanRequest().withTableName("serverless3").withScanFilter(conditions);
+
+        List<Rating> result = DynamoDBHelper.convertResultToRating(dynamoDBClient.scan(scanRequest));
+
+        return new ListResponse("GET result for chargeStationId", result);
+    }
 
 }
