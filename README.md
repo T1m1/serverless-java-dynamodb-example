@@ -33,7 +33,7 @@
 * ##### Invoke function to create dataset (POST)
  *  `serverless invoke -f createRating  --path data.json`
 
-* ##### Invoke function to get all dataset with chargeStationId from data.json (POST)
+* ##### Invoke function to get all dataset with chargeStationId from data.json (GET)
  *  `serverless invoke -f getRating --path data.json`
 
 
