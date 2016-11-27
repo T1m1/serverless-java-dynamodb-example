@@ -1,0 +1,7 @@
+{
+  "chargeStationId": "abc123def456",
+  "functionality": 5,
+  "accessibility": 5,
+  "price": 5,
+  "comment": "Schön hier"
+}
