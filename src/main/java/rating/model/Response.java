@@ -1,4 +1,4 @@
-package rating;
+package rating.model;
 
 public class Response {
 

@@ -18,4 +18,4 @@ package:
 
 functions:
   rating:
-    handler: rating.Handler
+    handler: rating.handler.Handler
