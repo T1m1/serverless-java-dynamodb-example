@@ -11,6 +11,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import rating.model.ListResponse;
 import rating.model.Rating;
+import rating.util.Constants;
 import rating.util.DynamoDBHelper;
 import rating.util.Util;
 
@@ -23,7 +24,7 @@ public class GetHandler implements RequestHandler<Rating, ListResponse> {
     public ListResponse handleRequest(Rating rating, Context context) {
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient().withRegion(Region.getRegion(Regions.US_EAST_1));
         if (rating.getChargeStationId() == null) {
-            Util.throwMissingKeyException("chargeStationId");
+            Util.throwMissingKeyException(Constants.CHARGE_STATION_ID);
         }
         Condition scanFilterCondition = new Condition()
                 .withComparisonOperator(ComparisonOperator.EQ.toString())
@@ -31,8 +32,8 @@ public class GetHandler implements RequestHandler<Rating, ListResponse> {
 
         HashMap<String, Condition> conditions = new HashMap<>();
 
-        conditions.put("chargeStationId", scanFilterCondition);
-        ScanRequest scanRequest = new ScanRequest().withTableName("serverless3").withScanFilter(conditions);
+        conditions.put(Constants.CHARGE_STATION_ID, scanFilterCondition);
+        ScanRequest scanRequest = new ScanRequest().withTableName(Constants.DB_NAME).withScanFilter(conditions);
 
         List<Rating> result = DynamoDBHelper.convertResultToRating(dynamoDBClient.scan(scanRequest));
 

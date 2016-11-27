@@ -11,6 +11,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import rating.model.Rating;
 import rating.model.Response;
+import rating.util.Constants;
 import rating.util.DynamoDBHelper;
 import rating.util.Util;
 
@@ -19,7 +20,7 @@ public class CreateHandler implements RequestHandler<Rating, Response> {
     public Response handleRequest(Rating rating, Context context) {
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient().withRegion(Region.getRegion(Regions.US_EAST_1));
         DynamoDB dynamoDB = new DynamoDB(dynamoDBClient);
-        Table table = dynamoDB.getTable("serverless3");
+        Table table = dynamoDB.getTable(Constants.DB_NAME);
 
         Util.checkParameter(rating);
 

@@ -11,14 +11,16 @@ import java.util.Map;
 import java.util.UUID;
 
 public class DynamoDBHelper {
+
+
     public static List<Rating> convertResultToRating(ScanResult scan) {
         ArrayList<Rating> result = new ArrayList<Rating>();
         for (Map item : scan.getItems()) {
             Rating rating = new Rating();
-            rating.setChargeStationId(((AttributeValue) item.get("chargeStationId")).getS());
-            rating.setFunctionality(Util.getIntegerValue(item, "functionality"));
-            rating.setAccessibility(Util.getIntegerValue(item, "accessibility"));
-            rating.setPrice(Util.getIntegerValue(item, "price"));
+            rating.setChargeStationId(((AttributeValue) item.get(Constants.CHARGE_STATION_ID)).getS());
+            rating.setFunctionality(Util.getIntegerValue(item, Constants.FUNCTIONALITY));
+            rating.setAccessibility(Util.getIntegerValue(item, Constants.ACCESSIBILITY));
+            rating.setPrice(Util.getIntegerValue(item, Constants.PRICE));
             result.add(rating);
         }
         return result;
@@ -27,12 +29,12 @@ public class DynamoDBHelper {
     public static Item ratingToDBItem(Rating rating) {
         Item item = new Item();
         item.withString("id", UUID.randomUUID().toString());
-        item.withString("chargeStationId", rating.getChargeStationId());
-        item.withInt("functionality", rating.getFunctionality());
-        item.withInt("accessibility", rating.getAccessibility());
-        item.withInt("price", rating.getPrice());
+        item.withString(Constants.CHARGE_STATION_ID, rating.getChargeStationId());
+        item.withInt(Constants.FUNCTIONALITY, rating.getFunctionality());
+        item.withInt(Constants.ACCESSIBILITY, rating.getAccessibility());
+        item.withInt(Constants.PRICE, rating.getPrice());
         if (rating.getComment() != null) {
-            item.withString("comment", rating.getComment());
+            item.withString(Constants.COMMENT, rating.getComment());
         }
         return item;
     }
