@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import rating.model.Rating;
 import rating.model.Response;
 
-public class Handler implements RequestHandler<Rating, Response> {
+public class CreateHandler implements RequestHandler<Rating, Response> {
 
 	@Override
 	public Response handleRequest(Rating input, Context context) {

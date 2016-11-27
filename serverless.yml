@@ -17,5 +17,17 @@ package:
   artifact: build/distributions/rating.zip
 
 functions:
-  rating:
-    handler: rating.handler.Handler
+  getRating:
+    handler: rating.handler.GetHandler
+    events:
+      - http:
+          path: rating
+          method: get
+          cors: true
+  createRating:
+      handler: rating.handler.CreateHandler
+      events:
+        - http:
+            path: rating
+            method: post
+            cors: true
