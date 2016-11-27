@@ -6,13 +6,11 @@ import lombok.Data;
 public class Response {
 
     private String message;
-    private Request request;
+    private Rating rating;
 
-    public Response(String message, Request request) {
+    public Response(String message, Rating rating) {
         this.message = message;
-        this.request = request;
+        this.rating = rating;
     }
 
-    public Response() {
-    }
 }
