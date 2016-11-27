@@ -17,3 +17,27 @@
 * ##### Invoke a Function:
   * Invokes an AWS Lambda Function on AWS and returns logs.
   * `serverless invoke -f hello -l`
+
+### How to use this example
+
+* ##### Create and export your AWS access keys:
+  * [Create AWS credentials](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html)
+  * Export AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID
+  * `export AWS_ACCESS_KEY=ABCDEFGHIJK****`
+  * `export AWS_SECRET_ACCESS_KEY=+KAABCDEFGH/IJK*******`
+
+* ##### Build zip file
+  * `gradle clean buildZip`
+
+* ##### Deploy Funktion
+  * Lambda function will be deployed
+  * DynamoDB will be created
+  * `serverless deploy`
+
+* ##### Invoke function to create dataset (POST)
+ *  `serverless invoke -f createRating` --path data.json
+
+* ##### Invoke function to get all dataset with chargeStationId from data.json (POST)
+ *  `serverless invoke -f getRating` --path data.json
+
+
