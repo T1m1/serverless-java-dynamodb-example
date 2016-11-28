@@ -37,7 +37,7 @@ resources:
     DynamoDbTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: serverless3
+        TableName: serverless
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -59,6 +59,6 @@ resources:
               Action:
                 - dynamodb:GetItem
                 - dynamodb:PutItem
-              Resource: arn:aws:dynamodb:*:*:table/serverless3
+              Resource: arn:aws:dynamodb:*:*:table/serverless
         Roles:
           - Ref: IamRoleLambdaExecution
