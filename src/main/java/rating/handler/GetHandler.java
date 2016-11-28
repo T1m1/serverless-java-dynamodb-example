@@ -37,7 +37,7 @@ public class GetHandler implements RequestHandler<Rating, ListResponse> {
 
         List<Rating> result = DynamoDBHelper.convertResultToRating(dynamoDBClient.scan(scanRequest));
 
-        return new ListResponse("GET result for chargeStationId", result);
+        return new ListResponse("GET result for chargeStationId: " + rating.getChargeStationId(), result);
     }
 
 }

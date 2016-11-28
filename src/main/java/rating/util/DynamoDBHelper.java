@@ -21,6 +21,7 @@ public class DynamoDBHelper {
             rating.setFunctionality(Util.getIntegerValue(item, Constants.FUNCTIONALITY));
             rating.setAccessibility(Util.getIntegerValue(item, Constants.ACCESSIBILITY));
             rating.setPrice(Util.getIntegerValue(item, Constants.PRICE));
+            if (item.containsKey(Constants.COMMENT)) rating.setComment(item.get(Constants.COMMENT).getS());
             result.add(rating);
         }
         return result;
